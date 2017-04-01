@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+</head>
+
+<body>
+    <!--微信二维码容器-->
+    <div id="scanlogin"></div>
+    <!--微信二维码脚本-->
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+    <!--生成二维码对象-->
+    <script>
+        var obj = new WxLogin({
+            id: "scanlogin",
+            appid: "wx537738a90f7970be",
+            scope: "snsapi_login",
+            // {userId}/wechatBind
+            redirect_uri: encodeURIComponent("http://dev.genwoshua.com/alpha/xwechat/scanlogin_cb"),
+            state: Math.ceil(Math.random() * 1000),
+            style: "black",
+            href: ""
+        });
+    </script>
+</body>
+
+</html>

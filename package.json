@@ -1,0 +1,20 @@
+{
+  "name": "xwechat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "cheneyxu",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.25.1",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "tracer": "^0.8.7"
+  }
+}

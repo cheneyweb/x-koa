@@ -1,0 +1,14 @@
+{
+    "db": {
+        "url": "mongodb://localhost:27017/test"
+    },
+    "log": {
+        "level": "info"
+    },
+    "server": {
+        "port": 8085,
+        "staticRoot": "/xserver/static/",
+        "controllerRoot": "/xserver/",
+        "controllerDir": "/src/controller/"
+    }
+}
