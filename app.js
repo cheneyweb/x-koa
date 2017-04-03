@@ -18,6 +18,14 @@ const log = require('tracer').colorConsole({ level: config.get('log').level })
 // 初始化应用服务
 const app = new Koa()
 // 加载中间件
+app.use(async function (ctx, next) {
+	log.info('进入权限控制');
+	if(true){
+		await next();
+	}else{
+		ctx.body = '权限校验失败';
+	}
+})
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))				// 静态资源服务
 app.use(bodyParser())														// 入参JSON解析
 // 加载所有控制器
