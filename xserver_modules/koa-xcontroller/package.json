@@ -1,0 +1,15 @@
+{
+  "name": "koa-xcontroller",
+  "version": "0.0.1",
+  "description": "Koa路由中间件，实现扫描指定目录下的所有控制器文件，自动路由",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "koa-mount": "^3.0.0",
+    "tracer": "^0.8.7"
+  },
+  "author": "cheneyxu",
+  "license": "ISC"
+}

@@ -9,9 +9,7 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const staticServer = require('koa-static')
 const mount = require('koa-mount')
-// 文件读取
-const fs = require('fs')
-const path = require('path')
+const xcontroller = require(__dirname + '/xserver_modules/koa-xcontroller/index.js')
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.get('log').level })
 
@@ -28,13 +26,9 @@ app.use(async function (ctx, next) {
 })
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))				// 静态资源服务
 app.use(bodyParser())														// 入参JSON解析
+
 // 加载所有控制器
-fs.readdirSync(controllerDir).forEach(function (filename) {
-	let moduleName = `${controllerRoot}${path.basename(filename, '.js')}`	// 请求模块名称,user.js就是/user/*的映射
-	let router = require(controllerDir + filename)							// 模块路由
-	app.use(mount(moduleName, router.routes()))								// 加载路由
-	app.use(mount(moduleName, router.allowedMethods()))
-})
+xcontroller.loadController(app,controllerRoot,controllerDir)				// 应用实例,访问根路径,控制器目录路径
 
 // 启动应用服务
 app.listen(port)
