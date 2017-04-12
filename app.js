@@ -9,7 +9,7 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const staticServer = require('koa-static')
 const mount = require('koa-mount')
-const xcontroller = require(__dirname + '/xserver_modules/koa-xcontroller/index.js')
+const xcontroller = require('koa-xcontroller')
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.get('log').level })
 
