@@ -1,6 +1,11 @@
 {
     "db": {
-        "url": "mongodb://localhost:27017/test"
+        "url": "mongodb://localhost:27017/test",
+        "host": "localhost",
+        "port": 3306,
+        "dbname": "test",
+        "username": "root",
+        "password": "root"
     },
     "log": {
         "level": "info"
@@ -9,6 +14,7 @@
         "port": 8085,
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver/",
-        "controllerDir": "/src/controller/"
+        "controllerDir": "/src/controller/",
+        "modelDir": "/src/model/"
     }
 }

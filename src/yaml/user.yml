@@ -1,0 +1,28 @@
+namespace: 'user'
+
+attrs: username, password
+
+findAll:
+    - select * from user
+
+findByPassword:
+    - select {{ user.attrs }} from user where password = :password
+
+findById:
+    - select {{ user.attrs }} from user where
+    - if:
+        user: :username > 10
+        sql: and username = :username
+    - and haha = :haha
+    - and user = 1
+    - ::order
+
+add:
+    - insert into user(username, password)
+    - values(:username, :password)
+
+edit:
+    - update user set password = :password where username = :username
+
+remove:
+    - delete from user where username = :username

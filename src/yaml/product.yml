@@ -1,0 +1,10 @@
+namespace: 'product'
+
+attrs: code, name
+
+findAll:
+    - select * from product
+
+add:
+    - insert into product(code, name)
+    - values(:code, :name)
