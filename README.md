@@ -22,3 +22,14 @@ xserver应用中间件组件服务koa版本
 	│   └── yaml
 	└── static
 	    └── scanlogin.html
+
+帮助联系
+>
+	作者:cheneyxu
+	邮箱:457299596@qq.com
+	QQ:457299596
+
+更新日志
+>
+	2017.05.08:集成passport认证中间件
+	

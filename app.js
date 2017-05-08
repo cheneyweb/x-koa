@@ -5,43 +5,46 @@ const staticRoot = config.get('server').staticRoot							// 静态根目录
 const controllerRoot = config.get('server').controllerRoot					// 控制根目录
 const controllerDir = __dirname + config.get('server').controllerDir		// 控制文件目录
 // 应用服务相关
-const Koa = require('koa')
-const bodyParser = require('koa-bodyparser')
-const staticServer = require('koa-static')
-const mount = require('koa-mount')
+const Koa = require('koa')													// KOA应用框架
+const bodyParser = require('koa-bodyparser')								// 入参JSON解析中间件
+const staticServer = require('koa-static')									// 静态资源服务中间件
+const mount = require('koa-mount')											// 挂载点中间件
+// 认证相关
+const session = require("koa-session2")										// SESSION中间件
+const passport = require(__dirname + '/src/auth/passport_config.js')		// PASSPORT认证中间件
+const xauth = require(__dirname + '/src/auth/xauth.js')						// 认证路由
 // 应用中间件
-const xcontroller = require('koa-xcontroller')
-const xmodel = require('koa-xmodel')
-const xbatis = require('koa-xbatis')
-const xnosql = require('koa-xnosql')
+const xcontroller = require('koa-xcontroller')								// koa-xcontroller
+const xmodel = require('koa-xmodel')										// koa-xmodel
+const xbatis = require('koa-xbatis')										// koa-xbatis
+const xnosql = require('koa-xnosql')										// koa-xnosql
 // 持久层相关
-const fs = require('fs')
-const sequelize = require(__dirname + '/src/sequelize/sequelize.js')
+const fs = require('fs')													// 文件服务
+const sequelize = require(__dirname + '/src/sequelize/sequelize.js')		// ORM应用框架
 let modelDir = __dirname + config.get('server').modelDir					// 模型文件目录
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.get('log').level })
-
-// 初始化应用服务
-const app = new Koa()
-// 加载中间件
-app.use(async function (ctx, next) {
-	log.info('进入权限控制');
-	if(true){
-		await next();
-	}else{
-		ctx.body = '权限校验失败';
-	}
-})
-app.use(mount(staticRoot, staticServer(__dirname + '/static')))				// 静态资源服务
-app.use(bodyParser())														// 入参JSON解析
 
 // 首先同步所有实体和数据库
 fs.readdirSync(modelDir).forEach(function (filename) {
 	require(modelDir + filename)
 })
 sequelize.sync().then(function () {
-	log.info('xmodel所有实体已同步数据库')
+	log.info('XModel所有实体已同步数据库')
 })
+
+// 初始化应用服务
+const app = new Koa()
+// 启用静态资源服务
+app.use(mount(staticRoot, staticServer(__dirname + '/static')))
+
+// 启用认证路由
+app.proxy = true	
+app.use(session({key: "SESSIONID"}))
+app.use(bodyParser())	
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(mount('/',xauth.routes()))
 
 // 1,引入koa-xcontroller中间件
 xcontroller.loadController(app,controllerRoot,controllerDir)				// 应用实例,访问根路径,控制器目录路径
