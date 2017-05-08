@@ -15,7 +15,6 @@
     "koa-mount": "^3.0.0",
     "koa-passport": "^3.0.0",
     "koa-router": "^7.0.1",
-    "koa-session": "^5.0.0",
     "koa-session2": "^2.0.3",
     "koa-static": "^3.0.0",
     "koa-xbatis": "0.1.0",
