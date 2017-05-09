@@ -9,6 +9,7 @@
   "author": "cheneyxu",
   "license": "ISC",
   "dependencies": {
+    "acl": "^0.4.10",
     "config": "^1.25.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
