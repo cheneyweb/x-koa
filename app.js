@@ -9,6 +9,7 @@ const Koa = require('koa')													// KOA应用框架
 const bodyParser = require('koa-bodyparser')								// 入参JSON解析中间件
 const staticServer = require('koa-static')									// 静态资源服务中间件
 const mount = require('koa-mount')											// 挂载点中间件
+const redis = require("redis")												// 缓存服务
 // 认证相关
 const session = require("koa-session2")										// SESSION中间件
 const passport = require(__dirname + '/src/auth/passport_config.js')		// PASSPORT认证中间件
@@ -35,6 +36,11 @@ sequelize.sync().then(function () {
 
 // 初始化应用服务
 const app = new Koa()
+const client = redis.createClient()
+// client.on('connect',function(){
+    client.set('author', 'cheneyxu',redis.print)
+    client.get('author', redis.print)
+// })
 // 启用静态资源服务
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))
 
