@@ -13,26 +13,18 @@ const redis = require("redis")												// 缓存服务
 // 认证相关
 const session = require("koa-session2")										// SESSION中间件
 const passport = require(__dirname + '/src/auth/passport_config.js')		// PASSPORT认证中间件
-const xauth = require(__dirname + '/src/auth/xauth.js')						// 认证路由
+// const xauth = require(__dirname + '/src/auth/xauth.js')				        // 认证路由
+const xauth = require(__dirname + '/src/auth/xauth_wechat.js')			    // 认证路由
 // 应用中间件
 const xcontroller = require('koa-xcontroller')								// koa-xcontroller
 const xmodel = require('koa-xmodel')										// koa-xmodel
 const xbatis = require('koa-xbatis')										// koa-xbatis
 const xnosql = require('koa-xnosql')										// koa-xnosql
 // 持久层相关
-const fs = require('fs')													// 文件服务
 const sequelize = require(__dirname + '/src/sequelize/sequelize.js')		// ORM应用框架
 let modelDir = __dirname + config.server.modelDir							// 模型文件目录
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.log.level })
-
-// 首先同步所有实体和数据库
-fs.readdirSync(modelDir).forEach(function (filename) {
-	require(modelDir + filename)
-})
-sequelize.sync().then(function () {
-	log.info('XModel所有实体已同步数据库')
-})
 
 // 初始化应用服务
 const app = new Koa()
@@ -56,14 +48,14 @@ app.use(mount('/',xauth.routes()))
 xcontroller.loadController(app,controllerRoot,controllerDir)				// 应用实例,访问根路径,控制器目录路径
 
 // 2,引入koa-xmodel中间件
-xmodel.modelDir = modelDir
+xmodel.initConnect(modelDir,sequelize)// 初始化mysql连接
 app.use(mount('/xmodel', xmodel.routes()))
 
 // 3,引入koa-xbatis中间件
 app.use(mount('/xbatis', xbatis.routes()))
 
 // 4,引入koa-xnosql中间件
-xnosql.dburl = config.db.url
+xnosql.initConnect(config.mongodb.url)// 初始化mongodb连接
 app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务

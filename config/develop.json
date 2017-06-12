@@ -1,14 +1,20 @@
 {
     "db": {
-        "url": "mongodb://localhost:27017/test",
         "host": "localhost",
         "port": 3306,
         "dbname": "test",
         "username": "root",
         "password": "root"
     },
+    "mongodb": {
+        "url": "mongodb://localhost:27017/test"
+    },
     "log": {
         "level": "info"
+    },
+    "wxapp":{
+        "appId":"wxf927ae67cdfba83c",
+        "appSecret":"29dc969fb087c794bcfa2466f057de35"
     },
     "server": {
         "port": 8085,

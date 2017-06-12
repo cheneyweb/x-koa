@@ -10,4 +10,4 @@ router.get('/cb', function (ctx, next) {
 	ctx.body = 'Y'
 })
 
-module.exports = router;
+module.exports = router
