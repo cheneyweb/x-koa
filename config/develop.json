@@ -12,9 +12,9 @@
     "log": {
         "level": "info"
     },
-    "wxapp":{
-        "appId":"wxf927ae67cdfba83c",
-        "appSecret":"29dc969fb087c794bcfa2466f057de35"
+    "wxapp": {
+        "appId": "",
+        "appSecret": ""
     },
     "server": {
         "port": 8085,
