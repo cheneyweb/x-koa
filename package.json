@@ -22,7 +22,7 @@
     "koa-xbatis": "0.1.0",
     "koa-xcontroller": "0.1.0",
     "koa-xmodel": "0.2.0",
-    "koa-xnosql": "0.2.3",
+    "koa-xnosql": "0.2.4",
     "moment": "^2.17.1",
     "mysql": "^2.13.0",
     "passport": "^0.3.2",

@@ -9,6 +9,8 @@ const ObjectId = require('mongodb').ObjectID
 const collection = 'menu'
 // 时间工具
 const moment = require('moment')
+// 缓存服务
+const cache = require(__dirname + '/../util/cache.js')
 
 /**
  * 新增菜单
@@ -16,7 +18,8 @@ const moment = require('moment')
 router.post('/add', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
-	let user = global[ctx.header.token]
+	let user = await cache.get(global.redis, ctx.header.token)
+	// let user = global[ctx.header.token]
 	if (user) {
 		let menu = ctx.request.body.menu
 		menu.operatorId = user._id.toString()
@@ -41,7 +44,8 @@ router.post('/add', async function (ctx, next) {
 router.get('/delete/:id', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
-	let user = global[ctx.header.token]
+	let user = await cache.get(global.redis, ctx.header.token)
+	// let user = global[ctx.header.token]
 	if (user) {
 		let query = { operatorId: user._id.toString(), '_id': ObjectId(ctx.params.id) }
 		let r = await mongodb.remove(collection, query)
@@ -58,7 +62,8 @@ router.get('/delete/:id', async function (ctx, next) {
 router.post('/update', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
-	let user = global[ctx.header.token]
+	let user = await cache.get(global.redis, ctx.header.token)
+	// let user = global[ctx.header.token]
 	if (user) {
 		let menu = ctx.request.body.menu
 		menu.datetimeModify = moment().format('YYYY-MM-DD HH:mm:ss')
@@ -78,7 +83,8 @@ router.post('/update', async function (ctx, next) {
 router.get('/detail/:id', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
-	let user = global[ctx.header.token]
+	let user = await cache.get(global.redis, ctx.header.token)
+	// let user = global[ctx.header.token]
 	if (user) {
 		let query = { operatorId: user._id.toString(), '_id': ObjectId(ctx.params.id) }
 		let r = await mongodb.findOne(collection, query)
@@ -95,10 +101,11 @@ router.get('/detail/:id', async function (ctx, next) {
 router.get('/my', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
-	let user = global[ctx.header.token]
+	let user = await cache.get(global.redis, ctx.header.token)
+	// let user = global[ctx.header.token]
 	if (user) {
 		let query = { operatorId: user._id.toString() }
-		let r = await mongodb.find(collection, query)
+		let r = await mongodb.findAndSort(collection, query, { datetimeCreate: -1 })
 		ctx.body = r
 	} else {
 		ctx.status = 400
@@ -113,7 +120,7 @@ router.get('/index', async function (ctx, next) {
 	// 获取xnosql设置在全局对象中的数据库连接和用户对象
 	let mongodb = global.mongodb
 	let query = { indexShow: true }
-	let r = await mongodb.find(collection, query)
+	let r = await mongodb.findAndSort(collection, query, { datetimeCreate: -1 })
 	ctx.body = r
 })
 

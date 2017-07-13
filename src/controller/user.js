@@ -5,29 +5,33 @@ const config = require('config')
 const log = require('tracer').colorConsole({ level: config.get('log').level })
 // 初始化路由
 const router = new Router()
-// 认证相关
-const passport = require(__dirname + '/passport_config.js')
 // 网络请求
 const axios = require('axios')
 // 加密模块
 const crypto = require('crypto')
-// 角色权限
-let acl = require('acl')
-acl = new acl(new acl.memoryBackend())
-acl.allow('admin', 'xbatis', 'remove')
 // 持久化相关
 const ObjectId = require('mongodb').ObjectID
 const collection = 'user'
+// 缓存服务
+const cache = require(__dirname + '/../util/cache.js')
+// 角色权限
+// let acl = require('acl')
+// acl = new acl(new acl.memoryBackend())
+// acl.allow('admin', 'xbatis', 'remove')
+
 /**
  * 认证登录
  */
-router.get('/xauth_wechat/login', async function (ctx, next) {
+router.get('/login', async function (ctx, next) {
     // 获取xnosql设置在全局对象中的数据库连接
     let mongodb = global.mongodb
+    let redis = global.redis
+    let user = await cache.get(redis, ctx.header.token)
+    // let user = global[ctx.header.token]
     // 如果从session中获取到用户对象
-    if (global[ctx.header.token]) {
-        console.log('已登录:' + JSON.stringify(global[ctx.header.token]))
-        let result = { token: ctx.header.token, user: global[ctx.header.token] }
+    if (user) {
+        log.info('已登录:' + JSON.stringify(user))
+        let result = { token: ctx.header.token, user: user }
         ctx.body = result
     } else {
         // 通过微信接口获取OPENID
@@ -42,13 +46,14 @@ router.get('/xauth_wechat/login', async function (ctx, next) {
             // 判断是否新注册用户
             if (r.length > 0) {
                 user = r[0]
-                console.log('新登录:' + JSON.stringify(user))
+                log.info('新登录:' + JSON.stringify(user))
             } else {
                 r = await mongodb.insert(collection, user)
-                console.log('新注册:' + JSON.stringify(user))
+                log.info('新注册:' + JSON.stringify(user))
             }
             // 将用户对象存储在SESSION中
-            global[token] = user
+            cache.set(redis, token, user)
+            // global[token] = user
             let result = { token: token, user: user }
             // 返回结果数据
             ctx.body = result
@@ -61,11 +66,13 @@ router.get('/xauth_wechat/login', async function (ctx, next) {
 /**
  * 完善用户信息
  */
-router.post('/xauth_wechat/updateuser', async function (ctx, next) {
+router.post('/updateuser', async function (ctx, next) {
     // 获取xnosql设置在全局对象中的数据库连接
     let mongodb = global.mongodb
     // 如果从session中获取到用户对象
-    if (global[ctx.header.token]) {
+    let user = await cache.get(global.redis, ctx.header.token)
+    // let user = global[ctx.header.token]
+    if (user) {
         // 更新用户信息
         let user = ctx.request.body.user
         let _id = user._id
@@ -74,45 +81,12 @@ router.post('/xauth_wechat/updateuser', async function (ctx, next) {
         await mongodb.update(collection, query, { $set: user })
         // 重置SESSION中的用户信息
         user._id = _id
-        global[ctx.header.token] = user
+        cache.set(redis, ctx.header.token, user)
+        // global[ctx.header.token] = user
         ctx.body = 'Y'
     } else {
         ctx.status = 400
         ctx.body = '尚未登录'
-    }
-})
-
-/**
- * 认证登出
- */
-router.get('/xauth_wechat/logout', function (ctx, next) {
-    ctx.logout()
-    ctx.body = 'Y'
-})
-
-// 以下为自定义需要身份认证的路由
-router.post('/xauth/test', function (ctx, next) {
-    if (ctx.isAuthenticated()) {
-        ctx.body = '认证通过'
-    } else {
-        ctx.throw(401)
-        ctx.body = '非法访问'
-    }
-})
-
-router.post('/xbatis/*/remove', async function (ctx, next) {
-    // 登录认证判断
-    if (ctx.isAuthenticated()) {
-        // 权限判断
-        let aclResult = await acl.isAllowed(ctx.session.passport.user.id, 'xbatis', 'remove')
-        // 根据权限认证结果返回
-        if (aclResult) {
-            await next()
-        } else {
-            ctx.throw(401)
-        }
-    } else {
-        ctx.throw(401)
     }
 })
 

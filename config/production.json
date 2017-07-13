@@ -7,7 +7,7 @@
         "password": "root"
     },
     "mongodb": {
-        "url": "mongodb://localhost:27017/wxapp_cake"
+        "url": "mongodb://localhost:27017/test"
     },
     "log": {
         "level": "info"

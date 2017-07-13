@@ -13,8 +13,7 @@ const redis = require("redis")												// 缓存服务
 // 认证相关
 const session = require("koa-session2")										// SESSION中间件
 const passport = require(__dirname + '/src/auth/passport_config.js')		// PASSPORT认证中间件
-// const xauth = require(__dirname + '/src/auth/xauth.js')				        // 认证路由
-const xauth = require(__dirname + '/src/auth/xauth_wechat.js')			    // 认证路由
+const xauth = require(__dirname + '/src/auth/xauth.js')				        // 认证路由
 // 应用中间件
 const xcontroller = require('koa-xcontroller')								// koa-xcontroller
 const xmodel = require('koa-xmodel')										// koa-xmodel
@@ -28,11 +27,11 @@ const log = require('tracer').colorConsole({ level: config.log.level })
 
 // 初始化应用服务
 const app = new Koa()
-const client = redis.createClient()
-// client.on('connect',function(){
-    client.set('author', 'cheneyxu',redis.print)
-    client.get('author', redis.print)
-// })
+global.redis = redis.createClient()
+global.redis.on('connect',function(){
+    global.redis.set('REDIS_TEST', 'REDIS存储测试',redis.print)
+    global.redis.get('REDIS_TEST', redis.print)
+})
 // 启用静态资源服务
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))
 
