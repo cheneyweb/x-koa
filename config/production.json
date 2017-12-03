@@ -12,12 +12,15 @@
     "log": {
         "level": "info"
     },
+    "jwt": {
+        "secret": "xserver"
+    },
     "wxapp": {
         "appId": "",
         "appSecret": ""
     },
     "server": {
-        "port": 80,
+        "port": 8085,
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver/",
         "controllerDir": "/src/controller/",

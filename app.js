@@ -25,13 +25,15 @@ let modelDir = __dirname + config.server.modelDir							// 模型文件目录
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.log.level })
 
+// REDIS缓存服务
+// global.redis = redis.createClient()
+// global.redis.on('connect',function(){
+//     global.redis.set('REDIS_TEST', 'REDIS存储测试',redis.print)
+//     global.redis.get('REDIS_TEST', redis.print)
+// })
+
 // 初始化应用服务
 const app = new Koa()
-global.redis = redis.createClient()
-global.redis.on('connect',function(){
-    global.redis.set('REDIS_TEST', 'REDIS存储测试',redis.print)
-    global.redis.get('REDIS_TEST', redis.print)
-})
 // 启用静态资源服务
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))
 
@@ -59,23 +61,23 @@ app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务
 app.listen(port)
-log.info(`XServer应用已启动,执行环境:${process.env.NODE_ENV},端口:${port}...`)
-log.warn(`静态资源访问路径【host:${port}${staticRoot}*】`)
-log.warn(`RESTfulApi访问路径【host:${port}${controllerRoot}MODULE_NAME/*】`)
+log.info(`XServer应用启动【执行环境:${process.env.NODE_ENV},端口:${port}】`)
+log.warn(`静态资源访问路径【localhost:${port}${staticRoot}*】`)
+log.warn(`RESTful  API路径【localhost:${port}${controllerRoot}MODULE_NAME/*】`)
 log.info(`===============================================================`)
 log.warn(`XModel服务已启动`)
-log.info(`[POST]http://host:${port}/xmodel/MODEL/create`)
-log.info(`[POST]http://host:${port}/xmodel/MODEL/update`)
-log.info(`[POST]http://host:${port}/xmodel/MODEL/query`)
-log.info(`[GET]http://host:${port}/xmodel/MODEL/get/:id`)
-log.info(`[GET]http://host:${port}/xmodel/MODEL/destroy/:id`)
+log.info(`[POST]http://localhost:${port}/xmodel/MODEL/create`)
+log.info(`[POST]http://localhost:${port}/xmodel/MODEL/update`)
+log.info(`[POST]http://localhost:${port}/xmodel/MODEL/query`)
+log.info(`[GET ]http://localhost:${port}/xmodel/MODEL/get/:id`)
+log.info(`[GET ]http://localhost:${port}/xmodel/MODEL/destroy/:id`)
 log.info(`===============================================================`)
 log.warn(`XBatis服务已启动`)
-log.info(`[POST]http://host:${port}/xbatis/MODEL_NAME/METHOD_NAME`)
+log.info(`[POST]http://localhost:${port}/xbatis/MODEL_NAME/METHOD_NAME`)
 log.info(`===============================================================`)
 log.warn(`XNosql服务已启动`)
-log.info(`[POST]http://host:${port}/xnosql/MODEL/create`)
-log.info(`[POST]http://host:${port}/xnosql/MODEL/update`)
-log.info(`[POST]http://host:${port}/xnosql/MODEL/query`)
-log.info(`[GET]http://host:${port}/xnosql/MODEL/get/:id`)
-log.info(`[GET]http://host:${port}/xnosql/MODEL/destroy/:id`)
+log.info(`[POST]http://localhost:${port}/xnosql/MODEL/create`)
+log.info(`[POST]http://localhost:${port}/xnosql/MODEL/update`)
+log.info(`[POST]http://localhost:${port}/xnosql/MODEL/query`)
+log.info(`[GET ]http://localhost:${port}/xnosql/MODEL/get/:id`)
+log.info(`[GET ]http://localhost:${port}/xnosql/MODEL/destroy/:id`)

@@ -31,7 +31,7 @@ function uploadFile(uptoken, key, localFile) {
         console.log(ret.hash, ret.key, ret.persistentId)
       } else {
         // 上传失败， 处理返回代码
-        console.log(err)
+        console.error(err)
       }
   })
 }

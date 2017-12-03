@@ -6,8 +6,8 @@ const log = require('tracer').colorConsole({ level: require('config').get('log')
 const router = new Router()
 // 七牛上传工具
 const qiniu = require('qiniu')
-qiniu.conf.ACCESS_KEY = 'W2NIfHD16rdORNSPx9RTm5yZzZx2ve5fu9x9wdl6'
-qiniu.conf.SECRET_KEY = 'qpgM-Nh4O-QOXK1NyGr3IFix6GSb-nSz3OgBigv5'
+qiniu.conf.ACCESS_KEY = 'Access_Key'
+qiniu.conf.SECRET_KEY = 'Secret_Key'
 const bucket = 'image'
 
 /**
