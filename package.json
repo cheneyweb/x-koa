@@ -22,7 +22,7 @@
     "koa-static": "^4.0.2",
     "koa-xbatis": "0.1.0",
     "koa-xcontroller": "0.1.0",
-    "koa-xmodel": "0.2.0",
+    "koa-xmodel": "^0.5.0",
     "koa-xnosql": "0.2.4",
     "lodash": "^4.17.4",
     "moment": "^2.19.3",
