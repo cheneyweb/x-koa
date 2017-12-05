@@ -20,6 +20,7 @@ const xmodel = require('koa-xmodel')										// koa-xmodel
 const xbatis = require('koa-xbatis')										// koa-xbatis
 const xnosql = require('koa-xnosql')										// koa-xnosql
 // 持久层相关
+const nodebatis = require(__dirname + '/src/nodebatis/nodebatis.js')
 const sequelize = require(__dirname + '/src/sequelize/sequelize.js')		// ORM应用框架
 let modelDir = __dirname + config.server.modelDir							// 模型文件目录
 // 日志相关
@@ -38,21 +39,22 @@ const app = new Koa()
 app.use(mount(staticRoot, staticServer(__dirname + '/static')))
 
 // 启用认证路由
-app.proxy = true	
-app.use(session({key: "SESSIONID"}))
-app.use(bodyParser())	
+app.proxy = true
+app.use(session({ key: "SESSIONID" }))
+app.use(bodyParser())
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(mount('/',xauth.routes()))
+app.use(mount('/', xauth.routes()))
 
 // 1,引入koa-xcontroller中间件
-xcontroller.loadController(app,controllerRoot,controllerDir)				// 应用实例,访问根路径,控制器目录路径
+xcontroller.loadController(app, controllerRoot, controllerDir)				// 应用实例,访问根路径,控制器目录路径
 
 // 2,引入koa-xmodel中间件
-xmodel.initConnect(modelDir,sequelize)// 初始化mysql连接
+xmodel.initConnect(modelDir, sequelize)// 初始化mysql连接
 app.use(mount('/xmodel', xmodel.routes()))
 
 // 3,引入koa-xbatis中间件
+xbatis.initConnect(nodebatis)         // 初始化mysql连接
 app.use(mount('/xbatis', xbatis.routes()))
 
 // 4,引入koa-xnosql中间件

@@ -20,7 +20,7 @@
     "koa-router": "^7.3.0",
     "koa-session2": "^2.2.5",
     "koa-static": "^4.0.2",
-    "koa-xbatis": "0.1.0",
+    "koa-xbatis": "^0.9.0",
     "koa-xcontroller": "^0.9.0",
     "koa-xmodel": "^0.9.0",
     "koa-xnosql": "^0.9.0",
