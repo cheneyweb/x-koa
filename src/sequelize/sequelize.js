@@ -7,7 +7,7 @@ const dbConfig = config.db
  * export NODE_ENV=production
  * @type {Sequelize}
  */
-var sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, {
+const sequelize = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, {
     host: dbConfig.host,
     dialect: 'mysql',
     operatorsAliases: false

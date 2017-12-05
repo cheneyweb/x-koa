@@ -12,7 +12,7 @@ key = 'my-nodejs-logo.png'
 
 //构建上传策略函数
 function uptoken(bucket, key) {
-  var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key)
+  const putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key)
   return putPolicy.token()
 }
 
@@ -24,7 +24,7 @@ filePath = './ruby-logo.png'
 
 //构造上传函数
 function uploadFile(uptoken, key, localFile) {
-  var extra = new qiniu.io.PutExtra()
+  const extra = new qiniu.io.PutExtra()
     qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
       if(!err) {
         // 上传成功， 处理返回值
