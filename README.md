@@ -1,6 +1,8 @@
 # x-koa
 xserver应用中间件组件服务koa版本
 
+[传送门：XServer官网文档](http://xserver.top)
+
 框架目录结构
 >
 	├── app.js
