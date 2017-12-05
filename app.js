@@ -9,7 +9,6 @@ const Koa = require('koa')													// KOA应用框架
 const bodyParser = require('koa-bodyparser')								// 入参JSON解析中间件
 const staticServer = require('koa-static')									// 静态资源服务中间件
 const mount = require('koa-mount')											// 挂载点中间件
-const redis = require("redis")												// 缓存服务
 // 认证相关
 const session = require("koa-session2")										// SESSION中间件
 const passport = require(__dirname + '/src/auth/passport_config.js')		// PASSPORT认证中间件
@@ -20,11 +19,12 @@ const xmodel = require('koa-xmodel')										// koa-xmodel
 const xbatis = require('koa-xbatis')										// koa-xbatis
 const xnosql = require('koa-xnosql')										// koa-xnosql
 // 持久层相关
-const nodebatis = require(__dirname + '/src/nodebatis/nodebatis.js')
+const redis = require("redis")                                              // 缓存服务
+const nodebatis = require(__dirname + '/src/nodebatis/nodebatis.js')        // SQL应用框架
 const sequelize = require(__dirname + '/src/sequelize/sequelize.js')		// ORM应用框架
 let modelDir = __dirname + config.server.modelDir							// 模型文件目录
 // 日志相关
-const log = require('tracer').colorConsole({ level: config.log.level })
+const log = require('tracer').colorConsole({ level: config.log.level })     // 日志服务
 
 // REDIS缓存服务
 // global.redis = redis.createClient()
@@ -50,15 +50,15 @@ app.use(mount('/', xauth.routes()))
 xcontroller.loadController(app, controllerRoot, controllerDir)				// 应用实例,访问根路径,控制器目录路径
 
 // 2,引入koa-xmodel中间件
-xmodel.initConnect(modelDir, sequelize)// 初始化mysql连接
+xmodel.initConnect(modelDir, sequelize) // 初始化mysql连接
 app.use(mount('/xmodel', xmodel.routes()))
 
 // 3,引入koa-xbatis中间件
-xbatis.initConnect(nodebatis)         // 初始化mysql连接
+xbatis.initConnect(nodebatis)           // 初始化mysql连接
 app.use(mount('/xbatis', xbatis.routes()))
 
 // 4,引入koa-xnosql中间件
-xnosql.initConnect(config.mongodb.url)// 初始化mongodb连接
+xnosql.initConnect(config.mongodb.url)  // 初始化mongodb连接
 app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务
