@@ -10,10 +10,23 @@
         "url": "mongodb://localhost:27017/test"
     },
     "log": {
-        "level": "info"
+        "level": "info",
+        "header": {
+            "loglist": ["token"]
+        }
     },
-    "jwt": {
-        "secret": "xserver"
+    "error":{
+        "debug": true
+    },
+    "auth": {
+        "secret": "xserver",
+        "pass": ["/xserver/auth/login"],
+        "role":{
+            "admin":[".*"],
+            "financialAdmin":["/financial/*"],
+            "financialManager":["/financial/test1","/financial/test2"],
+            "financialStaff":["GET:/financial/test1","POST:/financial/test2"]
+        }
     },
     "wxapp": {
         "appId": "",

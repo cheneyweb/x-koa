@@ -22,7 +22,7 @@ router.post('/add', async function (ctx, next) {
 	try {
 		// 获取xnosql设置在全局对象中的数据库连接和用户对象
 		const mongodb = global.mongodb
-		const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+		const user = await jwt.verify(ctx.header.token, config.auth.secret)
 		// let user = await cache.get(global.redis, ctx.header.token)
 		// let user = global[ctx.header.token]
 		if (user) {
@@ -54,7 +54,7 @@ router.get('/delete/:id', async function (ctx, next) {
 	try {
 		// 获取xnosql设置在全局对象中的数据库连接和用户对象
 		const mongodb = global.mongodb
-		const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+		const user = await jwt.verify(ctx.header.token, config.auth.secret)
 		// let user = await cache.get(global.redis, ctx.header.token)
 		// let user = global[ctx.header.token]
 		if (user) {
@@ -78,7 +78,7 @@ router.post('/update', async function (ctx, next) {
 	try {
 		// 获取xnosql设置在全局对象中的数据库连接和用户对象
 		const mongodb = global.mongodb
-		const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+		const user = await jwt.verify(ctx.header.token, config.auth.secret)
 		// let user = await cache.get(global.redis, ctx.header.token)
 		// let user = global[ctx.header.token]
 		if (user) {
@@ -105,7 +105,7 @@ router.get('/detail/:id', async function (ctx, next) {
 	try {
 		// 获取xnosql设置在全局对象中的数据库连接和用户对象
 		const mongodb = global.mongodb
-		const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+		const user = await jwt.verify(ctx.header.token, config.auth.secret)
 		// let user = await cache.get(global.redis, ctx.header.token)
 		// let user = global[ctx.header.token]
 		if (user) {
@@ -129,7 +129,7 @@ router.get('/my', async function (ctx, next) {
 	try {
 		// 获取xnosql设置在全局对象中的数据库连接和用户对象
 		const mongodb = global.mongodb
-		const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+		const user = await jwt.verify(ctx.header.token, config.auth.secret)
 		// let user = await cache.get(global.redis, ctx.header.token)
 		// let user = global[ctx.header.token]
 		if (user) {

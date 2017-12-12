@@ -33,7 +33,7 @@ router.get('/login', async function (ctx, next) {
         // let user = global[ctx.header.token]
         // TOKEN存在，则用户已登录
         if (ctx.header.token != 'NULL!') {
-            const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+            const user = await jwt.verify(ctx.header.token, config.auth.secret)
             log.info('已登录:' + JSON.stringify(user))
             ctx.body = { token: ctx.header.token, user: user }
         } else {
@@ -56,7 +56,7 @@ router.get('/login', async function (ctx, next) {
                 // global[token] = user
                 // 获取TOKEN
                 // let token = getSha1(res.data.openid)
-                const token = await jwt.sign({ ...user, iat: Date.now() }, config.jwt.secret)
+                const token = await jwt.sign({ ...user, iat: Date.now() }, config.auth.secret)
                 // 返回结果数据
                 ctx.body = { token: token, user: user }
             } else {
@@ -77,7 +77,7 @@ router.post('/updateuser', async function (ctx, next) {
         // 获取xnosql设置在全局对象中的数据库连接
         let mongodb = global.mongodb
         // 从TOKEN中解析用户
-        const user = await jwt.verify(ctx.header.token, config.jwt.secret)
+        const user = await jwt.verify(ctx.header.token, config.auth.secret)
         // let user = await cache.get(global.redis, ctx.header.token)
         // let user = global[ctx.header.token]
         if (user) {
@@ -91,7 +91,7 @@ router.post('/updateuser', async function (ctx, next) {
             user._id = _id
             // cache.set(redis, ctx.header.token, user)
             // global[ctx.header.token] = user
-            let token = jwt.sign({ ...user, iat: Date.now() }, config.jwt.secret)
+            let token = jwt.sign({ ...user, iat: Date.now() }, config.auth.secret)
             ctx.body = token
         } else {
             ctx.status = 400

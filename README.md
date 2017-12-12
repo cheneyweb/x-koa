@@ -16,7 +16,7 @@ xserver应用中间件组件服务koa版本
 	├── node_modules
 	├── package.json
 	├── src
-	│   ├── auth
+	│   ├── auth（已弃用，不再支持passport集成，现使用基于JWT的身份令牌识别替换）
 	│   ├── controller
 	│   ├── model
 	│   ├── nodebatis
@@ -37,5 +37,6 @@ xserver应用中间件组件服务koa版本
 	2017.05.09:集成redis缓存服务，集成acl角色权限控制服务
 	2017.12.03:升级所有依赖包
 	2017.12.05:升级所有中间件
+	2017.12.12:集成包括日志，异常，认证等基础服务在内的多钟中间件，弃用passport，使用基于JWT的身份令牌认证替代
 
 	
