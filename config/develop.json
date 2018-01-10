@@ -21,6 +21,7 @@
     "auth": {
         "secret": "xserver",
         "pass": ["/xserver/auth/login"],
+        "cors": true,
         "role":{
             "admin":[".*"],
             "financialAdmin":["/financial/*"],
