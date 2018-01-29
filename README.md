@@ -41,5 +41,6 @@ xserver应用中间件组件服务koa版本
 	2018.01.07:更新koa-xauth
 	2018.01.10:更新koa-xauth
 	2018.01.28:升级所有依赖包
+	2018.01.29:更新koa-xlog/koa-xerror/koa-xauth中间件
 
 	

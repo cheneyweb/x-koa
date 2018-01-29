@@ -1,7 +1,7 @@
 {
   "name": "x-koa",
   "version": "2.0.0",
-  "description": "",
+  "description": "xserver应用中间件组件服务koa版本",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
@@ -20,11 +20,11 @@
     "koa-router": "^7.3.0",
     "koa-session2": "^2.2.5",
     "koa-static": "^4.0.2",
-    "koa-xauth": "^0.8.0",
+    "koa-xauth": "^0.9.0",
     "koa-xbatis": "^0.9.0",
     "koa-xcontroller": "^0.9.0",
-    "koa-xerror": "^0.3.0",
-    "koa-xlog": "^0.2.0",
+    "koa-xerror": "^0.9.0",
+    "koa-xlog": "^0.9.0",
     "koa-xmodel": "^0.9.0",
     "koa-xnosql": "^0.9.0",
     "lodash": "^4.17.4",

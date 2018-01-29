@@ -16,25 +16,28 @@
         }
     },
     "error":{
-        "debug": true
+        "debug": true,
+        "errStatus": 500
     },
     "auth": {
         "secret": "xserver",
         "pass": ["/xserver/auth/login"],
-        "cors": true,
         "role":{
             "admin":[".*"],
             "financialAdmin":["/financial/*"],
             "financialManager":["/financial/test1","/financial/test2"],
             "financialStaff":["GET:/financial/test1","POST:/financial/test2"]
-        }
+        },
+        "cors": true,
+        "errMsg": "未认证",
+        "errStatus": 401
     },
     "wxapp": {
         "appId": "",
         "appSecret": ""
     },
     "server": {
-        "port": 8085,
+        "port": 3636,
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver/",
         "controllerDir": "/src/controller/",
