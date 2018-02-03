@@ -43,6 +43,8 @@
         "controllerDir": "/src/controller/",
         "xmodelRoot": "/xmodel",
         "modelDir": "/src/model/",
+        "xbatisRoot": "/xbatis",
+        "mapperDir": "/src/yaml/",
         "middlewareDir": "/src/middleware/"
     }
 }

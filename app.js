@@ -60,12 +60,11 @@ xcontroller.loadController(app, controllerRoot, controllerDir)				// 应用实�
 xmodel.init(app, sequelize, config.server)  // 初始化mysql连接
 
 // 3,引入koa-xbatis中间件
-xbatis.initConnect(nodebatis)               // 初始化mysql连接
-app.use(mount('/xbatis', xbatis.routes()))
+xbatis.init(app, nodebatis, config.server)  // 初始化mysql连接
 
 // 4,引入koa-xnosql中间件
-xnosql.initConnect(config.mongodb.url)      // 初始化mongodb连接
-app.use(mount('/xnosql', xnosql.routes()))
+// xnosql.initConnect(config.mongodb.url)      // 初始化mongodb连接
+// app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务
 app.listen(port)
