@@ -64,8 +64,8 @@ xbatis.initConnect(nodebatis)               // 初始化mysql连接
 app.use(mount('/xbatis', xbatis.routes()))
 
 // 4,引入koa-xnosql中间件
-// xnosql.initConnect(config.mongodb.url)      // 初始化mongodb连接
-// app.use(mount('/xnosql', xnosql.routes()))
+xnosql.initConnect(config.mongodb.url)      // 初始化mongodb连接
+app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务
 app.listen(port)
