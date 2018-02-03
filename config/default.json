@@ -36,7 +36,7 @@
     "server": {
         "port": 3636,
         "staticRoot": "/xserver/static/",
-        "controllerRoot": "/xserver/",
+        "controllerRoot": "/xserver",
         "controllerDir": "/src/controller/",
         "xmodelRoot": "/xmodel",
         "modelDir": "/src/model/",

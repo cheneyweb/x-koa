@@ -22,7 +22,7 @@
     "koa-static": "^4.0.2",
     "koa-xauth": "^0.9.0",
     "koa-xbatis": "^1.0.0",
-    "koa-xcontroller": "^0.9.0",
+    "koa-xcontroller": "^1.1.0",
     "koa-xerror": "^0.9.0",
     "koa-xlog": "^0.9.0",
     "koa-xmodel": "^1.0.0",

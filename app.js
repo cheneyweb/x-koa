@@ -2,8 +2,6 @@
 const config = require('config')											// 配置文件
 const port = config.server.port												// 系统端口
 const staticRoot = config.server.staticRoot									// 静态根目录
-const controllerRoot = config.server.controllerRoot							// 控制根目录
-const controllerDir = __dirname + config.server.controllerDir				// 控制文件目录
 // 应用服务相关
 const Koa = require('koa')													// KOA应用框架
 const koaBody = require('koa-body')								            // 入参JSON解析中间件
@@ -53,24 +51,24 @@ app.use(koaBody())                      // 入参JSON解析中间件
 app.use(xlog(config.log, (ctx) => { log.info('异步日志处理', ctx.request.body) }))    //日志中间件，参数1：日志配置，参数2：额外日志处理
 app.use(xauth(config.auth, (v) => v))   // TOKEN身份认证中间件，，参数1：认证配置，参数2：额外自定义TOKEN解析规则
 
-// 1,引入koa-xcontroller中间件
-xcontroller.loadController(app, controllerRoot, controllerDir)				// 应用实例，访问根路径，控制器目录路径
+// 1,加载koa-xcontroller中间件
+xcontroller.init(app, config.server)            // 应用实例，可选配置：访问根路径，控制器目录路径
 
 // 2,加载koa-xmodel中间件
-xmodel.init(app, sequelize, config.server)  // 初始化mysql连接
+xmodel.init(app, sequelize, config.server)      // 初始化mysql连接
 
 // 3,加载koa-xbatis中间件
-xbatis.init(app, nodebatis, config.server)  // 初始化mysql连接
+xbatis.init(app, nodebatis, config.server)      // 初始化mysql连接
 
 // 4,加载koa-xnosql中间件
-xnosql.init(app, config.server)             // 初始化mongodb连接
+xnosql.init(app, config.server)                 // 初始化mongodb连接
 
 // 启动应用服务
 app.listen(port)
 log.info(`XServer应用启动【执行环境:${process.env.NODE_ENV},端口:${port}】`)
-log.warn(`模拟用户登录路径【localhost:${port}${controllerRoot}auth/login】`)
+log.warn(`模拟用户登录路径【localhost:${port}${config.server.controllerRoot}auth/login】`)
 log.warn(`静态资源访问路径【localhost:${port}${staticRoot}*】`)
-log.warn(`RESTful  API路径【localhost:${port}${controllerRoot}MODULE_NAME/*】`)
+log.warn(`RESTful  API路径【localhost:${port}${config.server.controllerRoot}MODULE_NAME/*】`)
 log.info(`===============================================================`)
 log.warn(`XModel服务已启动`)
 log.info(`[POST]http://localhost:${port}/xmodel/MODEL/create`)
