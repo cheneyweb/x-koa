@@ -6,9 +6,6 @@
         "username": "root",
         "password": "root"
     },
-    "mongodb": {
-        "url": "mongodb://localhost:27017/test"
-    },
     "log": {
         "level": "info",
         "header": {
@@ -45,6 +42,8 @@
         "modelDir": "/src/model/",
         "xbatisRoot": "/xbatis",
         "mapperDir": "/src/yaml/",
-        "middlewareDir": "/src/middleware/"
+        "middlewareDir": "/src/middleware/",
+        "xnosqlRoot": "/xnosql",
+        "mongodbUrl": "mongodb://localhost:27017/test"
     }
 }
