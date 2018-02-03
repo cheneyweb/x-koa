@@ -21,7 +21,6 @@ const xlog = require('koa-xlog')                                            // k
 const redis = require("redis")                                              // 缓存服务
 const nodebatis = require(__dirname + '/src/nodebatis/nodebatis.js')        // SQL应用框架
 const sequelize = require(__dirname + '/src/sequelize/sequelize.js')		// ORM应用框架
-let modelDir = __dirname + config.server.modelDir							// 模型文件目录
 // 日志相关
 const log = require('tracer').colorConsole({ level: config.log.level })     // 日志服务
 
@@ -57,17 +56,16 @@ app.use(xauth(config.auth, (v) => v))   // TOKEN身份认证中间件，，参�
 // 1,引入koa-xcontroller中间件
 xcontroller.loadController(app, controllerRoot, controllerDir)				// 应用实例，访问根路径，控制器目录路径
 
-// 2,引入koa-xmodel中间件
-xmodel.initConnect(modelDir, sequelize) // 初始化mysql连接
-app.use(mount('/xmodel', xmodel.routes()))
+// 2,加载koa-xmodel中间件
+xmodel.init(app, sequelize, config.server)  // 初始化mysql连接
 
 // 3,引入koa-xbatis中间件
-xbatis.initConnect(nodebatis)           // 初始化mysql连接
+xbatis.initConnect(nodebatis)               // 初始化mysql连接
 app.use(mount('/xbatis', xbatis.routes()))
 
 // 4,引入koa-xnosql中间件
-xnosql.initConnect(config.mongodb.url)  // 初始化mongodb连接
-app.use(mount('/xnosql', xnosql.routes()))
+// xnosql.initConnect(config.mongodb.url)      // 初始化mongodb连接
+// app.use(mount('/xnosql', xnosql.routes()))
 
 // 启动应用服务
 app.listen(port)

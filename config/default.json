@@ -41,6 +41,8 @@
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver/",
         "controllerDir": "/src/controller/",
-        "modelDir": "/src/model/"
+        "xmodelRoot": "/xmodel",
+        "modelDir": "/src/model/",
+        "middlewareDir": "/src/middleware/"
     }
 }

@@ -20,7 +20,7 @@ router.use('/login', function (ctx, next) {
         const user = { userId: '123', role: 'admin' }
         const tokenSign = jwt.sign({ ...user, iat: Date.now(), exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) }, config.auth.secret)
         ctx.tokenSign = tokenSign   // 向后面的路由传递TOKEN加密令牌
-        next()
+        return next()
     } else {
         ctx.status = 401
         ctx.body = '用户名或密码错误'

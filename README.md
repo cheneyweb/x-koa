@@ -18,6 +18,7 @@ xserver应用中间件组件服务koa版本
 	├── src
 	│   ├── auth（已弃用，不再支持passport集成，现使用基于JWT的身份令牌识别替换）
 	│   ├── controller
+	│   ├── middleware
 	│   ├── model
 	│   ├── nodebatis
 	│   ├── sequelize
@@ -42,5 +43,6 @@ xserver应用中间件组件服务koa版本
 	2018.01.10:更新koa-xauth
 	2018.01.28:升级所有依赖包
 	2018.01.29:更新koa-xlog/koa-xerror/koa-xauth中间件
+	2018.02.03:更新koa-xmodel中间件至1.0版本，支持业务层AOP开发
 
 	
