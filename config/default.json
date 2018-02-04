@@ -38,11 +38,11 @@
         "staticRoot": "/xserver/static/",
         "controllerRoot": "/xserver",
         "controllerDir": "/src/controller/",
+        "middlewareDir": "/src/middleware/",
         "xmodelRoot": "/xmodel",
         "modelDir": "/src/model/",
         "xbatisRoot": "/xbatis",
         "mapperDir": "/src/yaml/",
-        "middlewareDir": "/src/middleware/",
         "xnosqlRoot": "/xnosql",
         "mongodbUrl": "mongodb://localhost:27017/test"
     }
