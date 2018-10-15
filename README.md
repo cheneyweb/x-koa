@@ -47,5 +47,6 @@ xserver应用中间件组件服务koa版本
 	2018.02.04:更新koa-xbatis/koa-xnosql/koa-xcontroller中间件至1.0版本，支持业务层AOP开发
 	2018.02.09:更新koa-xnosql以支持自动分页路由
 	2018.03.07:更新koa-xauth和koa-xerror
+	2018.10.15:升级所有依赖包
 
 	
