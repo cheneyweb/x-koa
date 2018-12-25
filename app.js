@@ -4,7 +4,6 @@ const port = config.server.port												// 系统端口
 const staticRoot = config.server.staticRoot									// 静态根目录
 // 应用服务相关
 const Koa = require('koa')													// KOA应用框架
-const cors = require('@koa/cors')                                           // 跨域中间件
 const koaBody = require('koa-body')								            // 入参JSON解析中间件
 const staticServer = require('koa-static')									// 静态资源服务中间件
 const mount = require('koa-mount')											// 挂载点中间件
@@ -46,7 +45,7 @@ app.use(mount(staticRoot, staticServer(__dirname + '/static')))
 // app.use(passport.initialize())
 // app.use(passport.session())
 // app.use(mount('/', xauth_router.routes()))
-app.use(mount('/', cors()))             // 跨域中间件
+
 app.use(xerror(config.error))           // 全局错误捕获中间件，必须第一位使用，参数1：错误配置
 app.use(koaBody())                      // 入参JSON解析中间件
 app.use(xlog(config.log, (ctx) => { log.info('异步日志处理', ctx.request.body) }))    //日志中间件，参数1：日志配置，参数2：额外日志处理
