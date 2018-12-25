@@ -29,7 +29,7 @@
     "koa-xnosql": "^1.6.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
-    "mysql2": "^1.6.1",
+    "mysql2": "^1.6.2",
     "nodebatis": "^2.3.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
