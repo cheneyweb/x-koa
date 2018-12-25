@@ -9,12 +9,13 @@
   "author": "cheneyxu",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "acl": "^0.4.11",
     "axios": "^0.18.0",
-    "config": "^2.0.1",
-    "jsonwebtoken": "^8.3.0",
-    "koa": "^2.6.1",
-    "koa-body": "^4.0.4",
+    "config": "^3.0.1",
+    "jsonwebtoken": "^8.4.0",
+    "koa": "^2.6.2",
+    "koa-body": "^4.0.6",
     "koa-mount": "^4.0.0",
     "koa-passport": "^4.1.1",
     "koa-router": "^7.4.0",
@@ -28,14 +29,14 @@
     "koa-xmodel": "^1.1.0",
     "koa-xnosql": "^1.6.0",
     "lodash": "^4.17.11",
-    "moment": "^2.22.2",
-    "mysql2": "^1.6.2",
-    "nodebatis": "^2.3.3",
+    "moment": "^2.23.0",
+    "mysql2": "^1.6.4",
+    "nodebatis": "^2.3.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "qiniu": "^7.2.1",
     "redis": "^2.8.0",
-    "sequelize": "^4.41.0",
-    "tracer": "^0.9.2"
+    "sequelize": "^4.42.0",
+    "tracer": "^0.9.6"
   }
 }
