@@ -67,9 +67,9 @@ xnosql.init(app, config.server)                 // 初始化mongodb连接
 // 启动应用服务
 app.listen(port)
 log.info(`XServer应用启动【执行环境:${process.env.NODE_ENV},端口:${port}】`)
-log.warn(`模拟用户登录路径【localhost:${port}${config.server.controllerRoot}auth/login】`)
+log.warn(`模拟用户登录路径【localhost:${port}${config.server.controllerRoot}/auth/login】`)
 log.warn(`静态资源访问路径【localhost:${port}${staticRoot}*】`)
-log.warn(`RESTful  API路径【localhost:${port}${config.server.controllerRoot}MODULE_NAME/*】`)
+log.warn(`RESTful  API路径【localhost:${port}${config.server.controllerRoot}/MODULE_NAME/*】`)
 log.info(`===============================================================`)
 log.warn(`XModel服务已启动`)
 log.info(`[POST]http://localhost:${port}/xmodel/MODEL/create`)
