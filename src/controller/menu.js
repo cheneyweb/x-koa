@@ -9,7 +9,7 @@ const router = new Router()
 const ObjectId = require('mongodb').ObjectID
 const collection = 'menu'
 // 时间工具
-const moment = require('moment')
+const dayjs = require('dayjs')
 // 加密模块
 const jwt = require('jsonwebtoken')
 // 缓存服务
@@ -34,7 +34,7 @@ router.post('/add', async function (ctx, next) {
 			if (user.nickName == '宇帅') {
 				menu.indexShow = true
 			}
-			menu.datetimeCreate = moment().format('YYYY-MM-DD HH:mm:ss')
+			menu.datetimeCreate = dayjs().format('YYYY-MM-DD HH:mm:ss')
 			const r = await mongodb.insert(collection, menu)
 			ctx.body = menu
 		} else {
@@ -83,7 +83,7 @@ router.post('/update', async function (ctx, next) {
 		// let user = global[ctx.header.token]
 		if (user) {
 			const menu = ctx.request.body.menu
-			menu.datetimeModify = moment().format('YYYY-MM-DD HH:mm:ss')
+			menu.datetimeModify = dayjs().format('YYYY-MM-DD HH:mm:ss')
 			const query = { operatorId: user._id.toString(), '_id': ObjectId(menu._id) }
 			delete menu._id
 			await mongodb.update(collection, query, { $set: menu })
