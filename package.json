@@ -28,7 +28,7 @@
     "koa-xerror": "^1.1.0",
     "koa-xlog": "^1.1.0",
     "koa-xmodel": "^1.1.0",
-    "koa-xnosql": "^1.7.0",
+    "koa-xnosql": "^1.8.0",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
     "nodebatis": "^2.3.4",
